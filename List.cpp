@@ -5,7 +5,8 @@ using namespace std;
 
 int main()
 {
-  List L<int>;
+  List<int> L;
   L.insert(5);
   L.insert(10);
+  L.print_list();
 }
