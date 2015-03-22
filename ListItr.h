@@ -1,4 +1,4 @@
-#include <iostrea>
+#include <iostream>
 #include "ListNode.h"
 
 #ifndef _LIST_ITR_H_
@@ -7,11 +7,25 @@
 template <class Object>
 class ListItr{
   public:
-  ListItr(ListNode<Object> *t) : temp(t) {}
+  ListItr(ListNode<Object> *t) : current(t) {}
   bool isPastEnd()
   {
-    return temp->next == NULL;
+    return current->next == NULL;
+  }
+  bool isEmpty()
+  {
+    return current == NULL;
+  }
+  void advance()
+  {
+    current = current->next;
+  }
+  Object get_data()
+  {
+    if(!isEmpty())
+	return current->data;
   }
   private:
-    ListNode<Object> *temp;
+    ListNode<Object> *current;
 };
+#endif

@@ -1,6 +1,6 @@
 #include <iostream>
 #include "ListNode.h"
-
+#include "ListItr.h"
 #ifndef _LIST_H_
 #define _LIST_H_
 
@@ -11,7 +11,7 @@ class List {
     {
     }
     void insert(const Object& x);
-    ListNode<Object>* find(const Object& x);
+    ListItr<Object>* find(const Object& x);
     void print_list();
   private:
     ListNode<Object> *header;
@@ -20,23 +20,18 @@ class List {
 template <class Object>
 void List<Object> :: insert(const Object& x)
 {
-    ListNode<Object> *temp = find(x);
-    if (temp == NULL && header == NULL){
-	header = new ListNode<Object>();
-	header->next = new ListNode<Object>(x, header->next);
-    } else if (temp == NULL)
+    ListItr<Object> *temp = find(x);
+    if (temp->isEmpty())
 	header->next = new ListNode<Object>(x, header->next);
 }
 
 template <class Object>
-ListNode<Object>* List<Object> :: find(const Object& x)
+ListItr<Object>* List<Object> :: find(const Object& x)
 {
-  ListNode<Object> *temp = header->next;
-  while(temp != NULL) {
-    if (temp->data == x)
-      return temp;
-    temp = temp->next;
-  }
+  ListItr<Object> *temp = new ListItr<Object>(header->next);
+  while (!temp->isEmpty() && temp->get_data() != x)
+    temp->advance();
+
   return temp;
 }
 
