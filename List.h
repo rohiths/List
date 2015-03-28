@@ -12,8 +12,10 @@ class List {
     }
     void insert(const Object& x);
     ListItr<Object>* find(const Object& x);
+    void Reverse_LL();
     void print_list();
   private:
+    void Reverse_LL(ListNode<Object> *head, ListNode<Object> *prev);
     ListNode<Object> *header;
 };
 
@@ -45,5 +47,23 @@ void List<Object> :: print_list()
 	}
 
 	cout << endl;
+}
+
+template <class Object>
+void List<Object> :: Reverse_LL()
+{
+	Reverse_LL(header->next, NULL);
+}
+
+template <class Object>
+void List<Object> :: Reverse_LL(ListNode<Object>* head, ListNode<Object> *prev)
+{
+	if (head->next == NULL) {
+		header->next = head;
+		head->next = prev;
+		return;
+	}
+	Reverse_LL(head->next, head);
+	head->next = prev;
 }
 #endif
